@@ -21,87 +21,122 @@
   --red: #990000;
   --dark: #111;
   --light: #f5f5f5;
-  --font: 'Sidewalk', Times New Roman, Helvetica, sans-serif; /* use Sidewalk font */
+  --font-main: Times New Roman, Helvetica, sans-serif;
+  --font-sidewalk: 'Sidewalk', sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--light); font-family: var(--font); }
+body { background: var(--bg); color: var(--light); font-family: var(--font-main); }
 a { color: #ff4444; text-decoration: none; }
 a:hover { color: var(--light); }
 
-/* ---------- LAYER FIX (checkpoint) ---------- */
+/* ---------- LAYER FIX ---------- */
 #site { position: relative; z-index: 5; }
 
-/* ---------- 2000s EYE-STRAIN (checkpoint) ---------- */
-@keyframes borderBlink {
-  0%,100% { border-color: var(--red); }
-  50% { border-color: #ff0; }
-}
+/* ---------- 2000s EYE-STRAIN ---------- */
+@keyframes borderBlink { 0%,100% { border-color: var(--red); } 50% { border-color: #ff0; } }
 #site { max-width: 980px; margin: 20px auto; background: var(--bg); border: 4px solid var(--red); animation: borderBlink 2s step-end infinite; }
 
-@keyframes seizure {
-  0%,33%,66%,100% { border-color: #111; }
-  16%,50%,83% { border-color: #ff0; }
-}
+@keyframes seizure { 0%,33%,66%,100% { border-color: #111; } 16%,50%,83% { border-color: #ff0; } }
 .featured { border: 2px solid #111; animation: seizure .33s step-end infinite; }
 
-/* ---------- TOP BAR (checkpoint) ---------- */
+/* ---------- TOP BAR ---------- */
 #topbar { background: var(--bg); border-bottom: 4px solid var(--red); padding: 10px; text-align: center; position: relative; overflow: hidden; }
-.logo { font-size: clamp(28px,5vw,36px); font-weight: 900; letter-spacing: -2px; color: #fff; position: relative; z-index: 3; }
-.wave { z-index: 1; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: clamp(18px,3vw,24px); white-space: nowrap;
-      background: linear-gradient(90deg,#ff0 0%,#ffa500 50%,#ff0 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
-      animation: waveMove 24s linear infinite; }
+
+/* ---------- TITLE ---------- */
+.logo { 
+  font-family: var(--font-sidewalk);
+  font-size: clamp(28px,5vw,36px); 
+  font-weight: 900; 
+  letter-spacing: 0.05em; /* spacing adjusted for readability */
+  color: #fff; 
+  position: relative; 
+  z-index: 3; 
+}
+
+/* ---------- WAVE ---------- */
+.wave { z-index: 1; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  font-size: clamp(18px,3vw,24px); white-space: nowrap;
+  background: linear-gradient(90deg,#ff0 0%,#ffa500 50%,#ff0 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: waveMove 24s linear infinite;
+}
 @keyframes waveMove { 0%{ transform: translateX(100vw) translateY(-50%); } 100%{ transform: translateX(-100%) translateY(-50%); } }
+
+/* ---------- NAV TABS ---------- */
 .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px; position: relative; z-index: 2; }
-.nav a { flex: 1 1 auto; text-align: center; background: var(--red); color: #fff; padding: 8px 12px; font-size: clamp(10px,1.5vw,12px); font-weight: bold; position: relative; overflow: hidden; }
+.nav a { 
+  flex: 1 1 auto; 
+  text-align: center; 
+  background: var(--red); 
+  color: #fff; 
+  padding: 8px 12px; 
+  font-size: clamp(10px,1.5vw,12px); 
+  font-weight: bold; 
+  position: relative; 
+  overflow: hidden;
+  font-family: var(--font-sidewalk); /* Sidewalk font */
+  letter-spacing: 0.02em; /* slight spacing for tabs */
+}
 .nav a::before { content: ""; position: absolute; inset: 0; background: #ff0; transform: translateX(-100%); transition: .2s; }
 .nav a:hover::before { transform: translateX(100%); }
 .nav a:hover { color: #000; }
 
-/* ---------- MATRIX RAIN (checkpoint) ---------- */
+/* ---------- MATRIX RAIN ---------- */
 #matrix { position: fixed; inset: 0; z-index: -1; }
 
-/* ---------- 3-COLUMN GRID (checkpoint) ---------- */
+/* ---------- 3-COLUMN GRID ---------- */
 .grid { display: grid; grid-template-columns: 200px 1fr 200px; gap: 10px; padding: 10px; position: relative; z-index: 1; }
 .box { background: var(--dark); border: 2px solid var(--red); padding: 10px; font-size: 13px; color: #ccc; }
-.box h2 { background: var(--red); margin: -10px -10px 10px; padding: 6px; font-size: 14px; color: #fff; }
+.box h2 { 
+  background: var(--red); 
+  margin: -10px -10px 10px; 
+  padding: 6px; 
+  font-size: 14px; 
+  color: #fff;
+  font-family: var(--font-sidewalk); /* Sidewalk for box titles */
+  letter-spacing: 0.03em;
+}
 .newslist { list-style: none; padding: 0; margin: 0; }
-.newslist li { border-bottom: 1px dotted var(--red); padding: 4px 0; }
-.featured img { width: 100%; height: 240px; object-fit: cover; background: #660000; display: block; }
-.featured .blurb { margin-top: 8px; font-size: 13px; }
-.block { display: block; background: #000; border: 1px solid var(--red); padding: 8px; margin-bottom: 6px; font-size: 12px; }
+.newslist li { border-bottom: 1px dotted var(--red); padding: 4px 0; font-family: var(--font-sidewalk); letter-spacing: 0.01em; }
 
-/* ---------- TICKER (checkpoint) ---------- */
+/* Featured section */
+.featured .blurb a { font-family: var(--font-sidewalk); letter-spacing: 0.02em; }
+
+/* Quick Links */
+.block { display: block; background: #000; border: 1px solid var(--red); padding: 8px; margin-bottom: 6px; font-size: 12px;
+  font-family: var(--font-sidewalk); letter-spacing: 0.01em;
+}
+
+/* ---------- TICKER ---------- */
 .ticker { white-space: nowrap; overflow: hidden; background: #000; border-top: 1px solid var(--red); font-size: 11px; color: #ff0; padding: 4px; position: relative; z-index: 1; }
 .ticker span { display: inline-block; animation: slide 16s linear infinite; }
 @keyframes slide { 0%{ transform: translateX(100%) } 100%{ transform: translateX(-100%) } }
 .ticker { opacity: 0; transition: .3s; } 
 #site:hover .ticker { opacity: 1; }
 
-/* ---------- ONE-PAGE SECTIONS (checkpoint) ---------- */
+/* ---------- ONE-PAGE SECTIONS ---------- */
 .section-page { min-height: 100vh; padding: 40px 20px; display: none; position: relative; }
 .section-page:target { display: block; }
 #home { display: block; }
-textarea { width: 100%; min-height: 60vh; background: #000; color: var(--light); border: 1px solid var(--red); padding: 10px; font-family: var(--font); resize: vertical; }
+textarea { width: 100%; min-height: 60vh; background: #000; color: var(--light); border: 1px solid var(--red); padding: 10px; font-family: var(--font-main); resize: vertical; }
 form { display: flex; flex-direction: column; gap: 10px; }
-input, textarea { width: 100%; padding: 10px; background: #000; color: var(--light); border: 1px solid var(--red); font-family: var(--font); }
+input, textarea { width: 100%; padding: 10px; background: #000; color: var(--light); border: 1px solid var(--red); font-family: var(--font-main); }
 button { padding: 10px 20px; background: var(--red); color: #fff; border: none; font-weight: bold; cursor: pointer; }
 button:hover { background: #fff; color: #000; }
 .back { margin-top: 15px; display: inline-block; padding: 8px 16px; background: var(--red); color: #fff; font-weight: bold; }
 .back:hover { background: #fff; color: #000; }
 
-/* ---------- MOBILE (checkpoint) ---------- */
+/* ---------- MOBILE ---------- */
 @media (max-width: 740px) {
   .grid { grid-template-columns: 1fr; }
   #site { margin: 10px; border-width: 3px; }
 }
 </style>
 </head>
-
 <body>
 <canvas id="matrix"></canvas>
 
-<!--  HOME  -->
 <div id="home" class="section-page">
   <header id="topbar">
     <div class="wave">ıll!ıllııllıl!lııllıllııllıllı!ıllıllııllıllııllıll!ııllıllııllıllıı!llıllııllıllı!ıll!ıllı</div>
@@ -148,7 +183,7 @@ button:hover { background: #fff; color: #000; }
   </footer>
 </div>
 
-<!--  ARCHIVE  -->
+<!-- ARCHIVE & CONTACT remain the same, using Times New Roman for text -->
 <div id="archive" class="section-page">
   <div class="container">
     <h1>ARCHIVE</h1>
@@ -157,7 +192,6 @@ button:hover { background: #fff; color: #000; }
   </div>
 </div>
 
-<!--  CONTACT  -->
 <div id="contact" class="section-page">
   <div class="container">
     <h1>CONTACT</h1>
@@ -172,13 +206,11 @@ button:hover { background: #fff; color: #000; }
 </div>
 
 <script>
-/* ---------- MATRIX RAIN (checkpoint) ---------- */
+/* MATRIX RAIN SCRIPT SAME AS BEFORE */
 const c = document.getElementById('matrix'), ctx = c.getContext('2d');
 function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
 resize();
 const letters = Array(256).fill(0).map(() => 1);
-
-/* slow-appear skull text on top half, red & white */
 const skullRow = Math.floor(c.height / 2);
 function draw() {
   ctx.fillStyle = 'rgba(0,0,0,.05)';
