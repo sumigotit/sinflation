@@ -166,26 +166,28 @@ button:hover{background:#fff;color:#000;}
 const c=document.getElementById('matrix'),ctx=c.getContext('2d');
 function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}resize();
 const letters=Array(256).fill(0).map(()=>1);
+
+/* slow-appear skull text on top half, red & white */
+const skullRow=Math.floor(c.height/2);
 function draw(){
-  /* TOP half = skull text symbols */
-  const skullRow=Math.floor(c.height/2);
-  for(let i=0;i<256;i++){
-    const y=letters[i]*14;
-    if(y<skullRow){
-      /* skull text symbols */
-      const skulls=['💀','☠','',''];
-      ctx.fillStyle='#ff0000';
-      ctx.font='20px sans-serif';
-      ctx.fillText(skulls[Math.floor(Math.random()*skulls.length)],i*20,y);
+  ctx.fillStyle='rgba(0,0,0,.05)';ctx.fillRect(0,0,c.width,c.height);
+  letters.forEach((y,i)=>{
+    const py=y*14;
+    if(py<skullRow){
+      /* red & white text skulls, slow appear */
+      const skulls=['☠','','',''];
+      ctx.fillStyle=Math.random()>.5?'#ff0000':'#ffffff';
+      ctx.font='18px monospace';
+      if(Math.random()>.85)ctx.fillText(skulls[Math.floor(Math.random()*skulls.length)],i*20,py);
     }else{
       /* classic hieroglyphics */
       ctx.fillStyle='#990000';
       ctx.font='14px Courier';
-      ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*14,y);
+      ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*14,py);
     }
-    if(y>c.height&&Math.random()>.975)letters[i]=0;
+    if(py>c.height&&Math.random()>.975)letters[i]=0;
     letters[i]++;
-  }
+  });
 }
 setInterval(draw,65);
 window.addEventListener('resize',resize);
